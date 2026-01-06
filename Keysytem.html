@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Leaf Hub Key System</title>
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        background: radial-gradient(circle at top, #1cff4a33, #050f08);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #b9ffcc;
+    }
+
+    .container {
+        width: 420px;
+        padding: 30px;
+        background: rgba(10, 30, 18, 0.85);
+        border-radius: 16px;
+        box-shadow: 0 0 25px #1cff4a66;
+        text-align: center;
+        animation: fadeUp 0.8s ease;
+    }
+
+    h1 {
+        color: #3dff7a;
+        margin-bottom: 25px;
+        text-shadow: 0 0 12px #3dff7a;
+        letter-spacing: 1px;
+    }
+
+    .box {
+        background: rgba(20, 60, 35, 0.8);
+        border: 1px solid #3dff7a55;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        animation: glow 2s infinite alternate;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #2aff6a, #0fb94b);
+        color: #033b1a;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.25s;
+        box-shadow: 0 0 15px #2aff6a88;
+    }
+
+    button:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 25px #2aff6acc;
+    }
+
+    .key {
+        font-size: 15px;
+        word-break: break-all;
+        color: #ffffff;
+        text-shadow: 0 0 8px #2aff6a;
+        margin-bottom: 15px;
+    }
+
+    .expire {
+        margin-top: 10px;
+        font-size: 13px;
+        color: #7cffab;
+        opacity: 0.85;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+        from { box-shadow: 0 0 10px #2aff6a55; }
+        to { box-shadow: 0 0 20px #2aff6aaa; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="app"></div>
+
+<script>
+const TASK_URL = ""; // <-- LINK NHIỆM VỤ Ở ĐÂY
+
+const keys = [
+"72d7171061098ffd5953bbea0","272592a4a2f4ce038ac54bd36",
+"f442be3f52fb3eeaea3a980f8","f9b25d3911b4756a8677b8ca6",
+"0dd72519e1fa2283462dd4db4","ae5a5af6eab0b755cf774619d",
+"ff19762c914f67c0631ac04c0","4b1580d1bb5ed52c8fca378a6",
+"6a039aec271afb1821a3974c3","826a34bfae72a6eefe2ea5e4a",
+"7a2381af5ddbe4df6473fe374","902d10fdfe956a91a16f02ad8",
+"3f2f04591f3ac2c8658f45754","c9ff774c7a9b528b52d9bebce",
+"54a66aba5ebf4d507b1ffafee","b6265b1a43bf284fd05013da1",
+"35a702118a9bb4735726173f1","e9bdb36ac5e1f7047ff8d7885",
+"733397e3ffc8da76128086cee","a5c3c541e77e8d74c4be33844"
+];
+
+const app = document.getElementById("app");
+
+function randomKey() {
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+if (!localStorage.getItem("leaf_completed")) {
+    app.innerHTML = `
+        <h1>LEAF HUB KEY SYSTEM</h1>
+        <div class="box">
+            <button onclick="startTask()">ENTER TO GET KEY</button>
+        </div>
+    `;
+} else {
+    let key = localStorage.getItem("leaf_key");
+    app.innerHTML = `
+        <h1>LEAF HUB KEY SYSTEM</h1>
+        <div class="box">
+            <div class="key">ALL QUESTION HAS COMPLETE<br><br>${key}</div>
+            <button onclick="copyKey()">COPY KEY</button>
+            <div class="expire">KEY IS EXPIRES IN 24 HOURS</div>
+        </div>
+    `;
+}
+
+function startTask() {
+    localStorage.setItem("leaf_completed", "true");
+    localStorage.setItem("leaf_key", randomKey());
+    window.location.href = TASK_URL || "#";
+}
+
+function copyKey() {
+    navigator.clipboard.writeText(localStorage.getItem("leaf_key"));
+    alert("Copied!");
+}
+</script>
+
+</body>
+</html>
