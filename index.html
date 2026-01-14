@@ -1,212 +1,457 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ESIGN AND CERT</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+:root{
+  --blue:#1e88ff;
+  --blue-soft:#e8f1ff;
+  --text:#1f2937;
+  --radius:18px;
+  --shadow:0 15px 40px rgba(30,136,255,.15);
+  --shadow-hover:0 25px 60px rgba(30,136,255,.25);
 }
 
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui}
 body{
-  background:#0b0b0b;
-  color:#fff;
-  margin:0;
-  padding:0;
+  background:linear-gradient(180deg,#f8fbff,#eef4ff);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
+/* ===== HERO ===== */
+.hero{
+  text-align:center;
+  padding:60px 20px 30px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(45deg, rgba(30,136,255,0.1) 0%, rgba(30,136,255,0.05) 100%);
+  z-index:-1;
+}
+.hero img{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:var(--shadow);
+  border:4px solid white;
+  animation:float 6s ease-in-out infinite;
+  transform-origin:center center;
+}
+.hero h1{
+  margin-top:20px;
+  font-size:36px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:var(--blue);
+  animation:textGlow 3s ease-in-out infinite alternate;
+}
+
+/* ===== TABS ===== */
 .tabs{
   display:flex;
-  gap:12px;
-  padding:16px;
-  background:#111;
+  justify-content:center;
+  gap:14px;
+  margin:30px auto;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
 }
-
 .tab{
-  padding:10px 16px;
-  border-radius:10px;
-  background:#1a1a1a;
+  padding:12px 22px;
+  border-radius:999px;
+  background:#fff;
   cursor:pointer;
-  transition:.3s;
+  font-weight:600;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position:relative;
+  overflow:hidden;
+  border:2px solid transparent;
 }
-
+.tab::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg, transparent, rgba(30,136,255,0.2), transparent);
+  transition:0.5s;
+}
+.tab:hover::before {
+  left:100%;
+}
 .tab.active{
-  background:#2ecc71;
-  color:#000;
+  background:var(--blue);
+  color:#fff;
+  box-shadow:0 8px 25px rgba(30,136,255,0.3);
+  transform:translateY(-3px);
+  border-color:var(--blue);
+}
+.tab:hover{
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 10px 25px rgba(30,136,255,0.2);
 }
 
+/* ===== CONTENT ===== */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
 .content{
   display:none;
-  padding:16px;
+  animation:fadeSlideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin:top center;
 }
-
 .content.active{
   display:block;
 }
 
+/* ===== CARD ===== */
 .card{
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  background:#141414;
-  border-radius:16px;
-  padding:14px 16px;
-  margin-bottom:14px;
-  animation:fadeUp .4s ease;
+  gap:18px;
+  margin-bottom:18px;
+  transition:all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(30,136,255,0.1);
 }
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:none}
+.card::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:4px;
+  height:100%;
+  background:var(--blue);
+  transition:0.4s;
 }
-
+.card:hover::before {
+  width:100%;
+  opacity:0.1;
+}
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:var(--shadow-hover);
+}
 .card img{
-  width:48px;
-  height:48px;
-  border-radius:50%;
+  width:80px;
+  height:80px;
+  border-radius:14px;
+  object-fit:cover;
+  transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border:2px solid white;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
-
-.info{
+.card:hover img {
+  transform:scale(1.1) rotate(5deg);
+}
+.card .info{
   flex:1;
+  position:relative;
+  z-index:1;
 }
-
-.info h3{
-  margin:0;
-  font-size:15px;
+.card h3{
+  font-size:18px;
+  margin-bottom:6px;
+  transition:0.3s;
 }
-
-.sub-text{
-  margin-top:4px;
-  font-size:12px;
-  opacity:.55;
+.card:hover h3 {
+  color:var(--blue);
 }
-
 .btn{
-  padding:10px 18px;
+  padding:12px 20px;
   border-radius:12px;
-  background:linear-gradient(135deg,#2ecc71,#27ae60);
-  color:#000;
-  font-weight:600;
+  background:var(--blue);
+  color:#fff;
   text-decoration:none;
-  transition:.25s;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
+  font-weight:700;
+  transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  white-space:nowrap;
+  position:relative;
+  overflow:hidden;
+  z-index:1;
+  box-shadow:0 5px 15px rgba(30,136,255,0.3);
+  border:2px solid transparent;
 }
-
+.btn::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition:0.5s;
+  z-index:-1;
+}
+.btn:hover::before {
+  left:100%;
+}
 .btn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 12px rgba(46,204,113,.6);
+  background:#0f6de0;
+  box-shadow:0 12px 25px rgba(30,136,255,0.45);
+  transform:translateY(-3px) scale(1.05);
+  border-color:rgba(255,255,255,0.3);
 }
 
-/* FIX SAFARI / IOS */
-a.btn{
-  color:#000 !important;
-  text-decoration:none !important;
+/* ===== SIMPLE CARD ===== */
+.simple-card{
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+  transition:all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(30,136,255,0.1);
+}
+.simple-card::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(45deg, transparent, rgba(30,136,255,0.05), transparent);
+  transform:translateX(-100%);
+  transition:0.6s;
+}
+.simple-card:hover::before {
+  transform:translateX(100%);
+}
+.simple-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-hover);
+}
+.simple-card span{
+  font-size:18px;
+  font-weight:600;
+  transition:0.3s;
+}
+.simple-card:hover span {
+  color:var(--blue);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeScale{
+  from{opacity:0;transform:scale(.9) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+@keyframes fadeSlideUp{
+  from{opacity:0;transform:translateY(30px) scale(0.95)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes float{
+  0%, 100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-15px) rotate(1deg);}
+}
+@keyframes textGlow{
+  from{text-shadow:0 0 10px rgba(30,136,255,0.3);}
+  to{text-shadow:0 0 20px rgba(30,136,255,0.6);}
+}
+
+/* ===== FLOATING BACKGROUND ELEMENTS ===== */
+.floating-bg {
+  position:fixed;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:linear-gradient(45deg, rgba(30,136,255,0.1), rgba(30,136,255,0.05));
+  z-index:-1;
+  animation:floating 20s infinite linear;
+}
+.floating-bg:nth-child(1){
+  top:10%;
+  left:5%;
+  width:200px;
+  height:200px;
+}
+.floating-bg:nth-child(2){
+  top:60%;
+  right:10%;
+  width:150px;
+  height:150px;
+  animation-delay:-5s;
+  animation-duration:25s;
+}
+.floating-bg:nth-child(3){
+  bottom:20%;
+  left:15%;
+  width:100px;
+  height:100px;
+  animation-delay:-10s;
+  animation-duration:30s;
+}
+@keyframes floating {
+  0%{transform:translate(0, 0) rotate(0deg);}
+  25%{transform:translate(20px, 20px) rotate(90deg);}
+  50%{transform:translate(0, 40px) rotate(180deg);}
+  75%{transform:translate(-20px, 20px) rotate(270deg);}
+  100%{transform:translate(0, 0) rotate(360deg);}
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .hero h1{font-size:28px}
+  .card{flex-direction:column;align-items:flex-start}
+  .btn{width:100%;text-align:center}
+  .simple-card{flex-direction:column;gap:15px;text-align:center}
 }
 </style>
 </head>
 
 <body>
 
-<div class="tabs">
-  <div class="tab active" onclick="openTab('esign')">ESIGN</div>
-  <div class="tab" onclick="openTab('cert')">CERT</div>
-  <div class="tab" onclick="openTab('dns')">DNS</div>
+<!-- Floating background elements -->
+<div class="floating-bg"></div>
+<div class="floating-bg"></div>
+<div class="floating-bg"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
+  <h1>ESIGN AND CERT</h1>
 </div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="showTab('esign')">ESIGN</div>
+  <div class="tab" onclick="showTab('cert')">CERTIFICATE</div>
+  <div class="tab" onclick="showTab('dns')">DNS PROFILE</div>
+</div>
+
+<div class="container">
 
 <!-- ESIGN -->
 <div id="esign" class="content active">
 
+  <!-- MỤC MỚI ĐẦU TIÊN -->
   <div class="card">
     <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
     <div class="info">
       <h3>ESign New Cert ✅</h3>
-      <div class="sub-text">Qingdao Rural Commercial Bank Co., Ltd (UNOFFICIAL)</div>
+      <div style="color:#6b7280;font-size:14px;margin-top:4px;">Qingdao Rural Commercial Bank Co., Ltd (UNOFFICIAL)</div>
     </div>
     <a class="btn" href="https://api.khoindvn.eu.org/KXcveB">DOWNLOAD</a>
   </div>
 
+  <!-- ITEM GỐC -->
   <div class="card">
     <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
     <div class="info">
       <h3>ESign</h3>
-      <div class="sub-text">Commission on Elections</div>
+      <div style="color:#6b7280;font-size:14px;margin-top:4px;">Commission on Elections</div>
     </div>
-    <a class="btn" href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/TruongAn-GAMING/Web-Intall-Esign-Ksign/refs/heads/main/Web/Esign%20Comission.plist">
-      DOWNLOAD
-    </a>
+    <a class="btn" href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/TruongAn-GAMING/Web-Intall-Esign-Ksign/refs/heads/main/Web/Esign%20Comission.plist">DOWNLOAD</a>
   </div>
 
+  <!-- CLONE ITEMS -->
   <script>
-  const esigns = [
-    "CHIBA INSTITUTE OF TECHNOLOGY",
-    "Beijing Esensoft Co., Ltd",
-    "NREH ESTATE INFORMATION TECHNOLOGY CO.,LTD",
-    "China Railway Eryuan Engineering Group Co., Ltd.",
-    "EEO Education ltd",
-    "TCL household Appliance Marketing Co., LTD",
-    "Wuling Power Corporation",
-    "HDFC Bank Limited"
-  ];
-
-  document.write(
-    esigns.map(e=>`
-      <div class="card">
-        <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
-        <div class="info">
-          <h3>ESign</h3>
-          <div class="sub-text">${e}</div>
-        </div>
-        <a class="btn" href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/TruongAn-GAMING/Web-Intall-Esign-Ksign/refs/heads/main/Web/manifest.plist">
-          DOWNLOAD
-        </a>
+    const esigns=[
+      "CHIBA INSTITUTE OF TECHNOLOGY",
+      "Beijing Esensoft Co., Ltd",
+      "NREH ESTATE INFORMATION TECHNOLOGY CO.,LTD",
+      "China Railway Eryuan Engineering Group Co., Ltd.",
+      "EEO Education ltd",
+      "TCL household Appliance Marketing Co., LTD",
+      "Wuling Power Corporation",
+      "HDFC Bank Limited"
+    ];
+    document.write(esigns.map(e=>`
+    <div class="card">
+      <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
+      <div class="info">
+        <h3>ESign</h3>
+        <div style="color:#6b7280;font-size:14px;margin-top:4px;">${e}</div>
       </div>
-    `).join("")
-  );
+      <a class="btn" href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/TruongAn-GAMING/Web-Intall-Esign-Ksign/refs/heads/main/Web/manifest.plist">DOWNLOAD</a>
+    </div>`).join(""));
   </script>
 
 </div>
 
 <!-- CERT -->
 <div id="cert" class="content">
-  <div class="card">
-    <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
-    <div class="info">
-      <h3>ESign Certificate</h3>
-      <div class="sub-text">Install certificate for signing</div>
-    </div>
-    <a class="btn" href="https://github.com/TruongAn-GAMING/Esign/raw/refs/heads/main/Web/ESignCert.zip">
-      DOWNLOAD
-    </a>
+  <div class="simple-card">
+    <span>📜 Certificate Esign<br><span style="color:#6b7280;font-size:14px;">Update</span></span>
+    <a class="btn" href="https://github.com/TruongAn-GAMING/Esign/raw/refs/heads/main/Web/ESignCert.zip">DOWNLOAD</a>
   </div>
 </div>
 
 <!-- DNS -->
 <div id="dns" class="content">
-  <div class="card">
-    <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
-    <div class="info">
-      <h3>DNS V5</h3>
-      <div class="sub-text">MY DNS</div>
-    </div>
-    <a class="btn" href="https://github.com/TruongAn-GAMING/Esign/releases/download/1839178583.0/DNS_V5.mobileconfig">
-      DOWNLOAD
-    </a>
+  <div class="simple-card">
+    <span>🔰 DNS V5<br><span style="color:#6b7280;font-size:14px;">My DNS</span></span>
+    <a class="btn" href="https://github.com/TruongAn-GAMING/Esign/releases/download/1839178583.0/DNS_V5.mobileconfig">DOWNLOAD</a>
   </div>
 </div>
 
+</div>
+
 <script>
-function openTab(id){
-  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function showTab(id){
+  // Add animation to tab switching
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.classList.remove('active');
+    t.style.animation = 'none';
+    setTimeout(() => t.style.animation = '', 10);
+  });
+  
+  document.querySelectorAll('.content').forEach(c=>{
+    c.classList.remove('active');
+    c.style.animation = 'none';
+    setTimeout(() => {
+      c.style.animation = '';
+      if(c.id === id) {
+        c.style.display = 'block';
+        setTimeout(() => c.classList.add('active'), 10);
+      } else {
+        setTimeout(() => c.style.display = 'none', 400);
+      }
+    }, 10);
+  });
+  
   event.target.classList.add('active');
+  
+  // Add page transition effect
+  document.body.style.opacity = '0.95';
+  setTimeout(() => {
+    document.body.style.opacity = '1';
+  }, 150);
 }
+
+// Add hover effect to all cards on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 0.05}s`;
+  });
+});
 </script>
 
 </body>
