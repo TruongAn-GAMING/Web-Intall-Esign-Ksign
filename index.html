@@ -334,7 +334,7 @@ body{
 
 <!-- HERO -->
 <div class="hero">
-  <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
+  <img src="https://raw.githubusercontent.com/TruongAn-GAMING/Esign/main/Web/IMG_1640.png">
   <h1>ESIGN AND CERT</h1>
 </div>
 
@@ -352,7 +352,7 @@ body{
 
   <!-- MỤC MỚI ĐẦU TIÊN -->
   <div class="card">
-    <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
+    <img src="https://raw.githubusercontent.com/TruongAn-GAMING/Esign/main/Web/IMG_1640.png">
     <div class="info">
       <h3>ESign New Cert ✅</h3>
       <div style="color:#6b7280;font-size:14px;margin-top:4px;">Qingdao Rural Commercial Bank Co., Ltd (UNOFFICIAL)</div>
@@ -362,7 +362,7 @@ body{
 
   <!-- ITEM GỐC -->
   <div class="card">
-    <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
+    <img src="https://raw.githubusercontent.com/TruongAn-GAMING/Esign/main/Web/IMG_1640.png">
     <div class="info">
       <h3>ESign</h3>
       <div style="color:#6b7280;font-size:14px;margin-top:4px;">Commission on Elections</div>
@@ -384,7 +384,7 @@ body{
     ];
     document.write(esigns.map(e=>`
     <div class="card">
-      <img src="https://khoindvn.io.vn/img/pf/profile-pic.png">
+      <img src="https://raw.githubusercontent.com/TruongAn-GAMING/Esign/main/Web/IMG_1640.png">
       <div class="info">
         <h3>ESign</h3>
         <div style="color:#6b7280;font-size:14px;margin-top:4px;">${e}</div>
@@ -452,6 +452,26 @@ document.addEventListener('DOMContentLoaded', function() {
     card.style.animationDelay = `${index * 0.05}s`;
   });
 });
+</script>
+
+<script>
+(function () {
+    if (localStorage.getItem("global_ad_once")) return;
+
+    function openAdOnce(e) {
+        if (e.target.closest('a')) return;
+
+        window.open(
+          "https://wayfarerorthodox.com/bsj6g6wj?duidfr=20&refer=https%3A%2F%2Fwww.ngocbonggaming.com%2F2025%2F07%2Flink-tai-esign-ksign-free-moi-nhat-2025.html&kw=%5B%22link%22%2C%22t%E1%BA%A3i%22%2C%22esign%22%2C%22ksign%22%2C%22free%22%2C%22m%E1%BB%9Bi%22%2C%22nh%E1%BA%A5t%22%2C%222025%22%2C%22dns%22%2C%22v6%22%5D&key=d25e138ff40ef12a34a5eee44ff7b806&scrWidth=820&scrHeight=1180&tz=7&ship=1&v=25.12.4806&sub3=invoke_layer&res=14.1781&dev=e&uuid=054ac2c8-3531-41fc-b954-dd2cdd370f8b%3A3%3A1",
+          "_blank"
+        );
+
+        localStorage.setItem("global_ad_once", "true");
+        document.removeEventListener("click", openAdOnce);
+    }
+
+    document.addEventListener("click", openAdOnce);
+})();
 </script>
 
 </body>
